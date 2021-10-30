@@ -55,7 +55,7 @@ namespace DAi
 
         void playCard(int index, std::vector<Card> playerHand);
 
-        void slideCards();
+        void slideCards(bool isFPTurn, int index);
 
         int whatDominium();
 
