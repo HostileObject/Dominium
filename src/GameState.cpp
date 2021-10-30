@@ -27,32 +27,45 @@ namespace DAi
             case JACK_OF_HEARTS:
             case JACK_OF_DIAMONDS:
             case JACK_OF_CLUBS:
-                return 1
+                return 1;
             //Queen
             case QUEEN_OF_SPADES:
             case QUEEN_OF_HEARTS:
             case QUEEN_OF_DIAMONDS:
             case QUEEN_OF_CLUBS:
-                return 2
+                return 2;
             //King
             case KING_OF_SPADES:
             case KING_OF_HEARTS:
             case KING_OF_DIAMONDS:
             case KING_OF_CLUBS:
-                return 3
+                return 3;
             //Ace
             case ACE_OF_SPADES:
             case ACE_OF_HEARTS:
             case ACE_OF_DIAMONDS:
             case ACE_OF_CLUBS:
-                return 4
+                return 4;
             default:
-                return 0
+                return 0;
         }
     }
 
     void GameState::calculateOutcome()
     {
+        switch (this->whatDominium())
+        {
+            case JACK:
+                break;
+            case QUEEN:
+                break;
+            case KING:
+                break;
+            case ACE:
+                break;
+            default:
+                break;
+        }
     }
 
     void GameState::slideCards(bool isFPTurn, int index)
@@ -70,7 +83,7 @@ namespace DAi
             this->_FPHsprites.clear();
             this->_FPHsprites = tempSprites;
             this->_FPHsprites.push_back(this->dummy);
-            for (int i = 0; i < 4 i++) 
+            for (int i = 0; i < 4; i++) 
             {
                 this->_FPHsprites.at(i).setPosition((SCREEN_WIDTH/2) - (this->_FPHsprites.at(i).getGlobalBounds().width * 2) + (this->_FPHsprites.at(i).getGlobalBounds().width * i) + (15 * i / i), (SCREEN_HEIGHT) - (this->_FPHsprites.at(i).getGlobalBounds().height));
             }
@@ -88,7 +101,7 @@ namespace DAi
             this->_SPHsprites.clear();
             this->_SPHsprites = tempSprites;
             this->_SPHsprites.push_back(this->dummy);
-            for (int i = 0; i < 4 i++) 
+            for (int i = 0; i < 4; i++) 
             {
                 this->_SPHsprites.at(i).setPosition((SCREEN_WIDTH/2) - (this->_FPHsprites.at(i).getGlobalBounds().width * 2) + (this->_FPHsprites.at(i).getGlobalBounds().width * i) + (15 * i / i), (SCREEN_HEIGHT) - (this->_FPHsprites.at(i).getGlobalBounds().height));
             }
