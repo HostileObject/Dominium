@@ -20,56 +20,14 @@ namespace DAi
 
     int GameState::whatDominium()
     {
-        switch (this->_dominiumPile.top().getCardName())
-        {
-            //Jack
-        case 20:
-        case 33:
-        case 46:
-        case 59:
-            return 1;
-            break;
-            //Queen
-        case 21:
-        case 34:
-        case 47:
-        case 60:
-            return 2;
-            break;
-            //King
-        case 22:
-        case 35:
-        case 48:
-        case 61:
-            return 3;
-            break;
-            //Ace
-        case 10:
-        case 23:
-        case 36:
-        case 49:
-            return 4;
-            break;
-
-        default:
-            break;
-        }
     }
+
     void GameState::calculateOutcome()
     {
-        switch (this->whatDominium())
-        {
-        case JACK:
-            break;
-        case QUEEN:
-            break;
-        case KING:
-            break;
-        case ACE:
-            break;
-        default:
-            break;
-        }
+    }
+
+    void GameState::slideCards()
+    {
     }
 
     void GameState::updateDominiumSprite()
@@ -77,46 +35,6 @@ namespace DAi
         this->_playedDominium.setTexture(this->_data->assets.getTexture(std::to_string(this->_dominiumPile.top().getCardName())));
         this->_playedDominium.setScale(0.5, 0.5);
         this->_playedDominium.setPosition((SCREEN_WIDTH / 2) - (this->_playedDominium.getGlobalBounds().width * 1.8), (SCREEN_HEIGHT / 2) - (this->_playedDominium.getGlobalBounds().height / 2));
-    }
-
-    void GameState::slideCards(bool isFPTurn, int index)
-    {
-        if (isFPTurn)
-        {
-            std::vector<sf::Sprite> tempSprites;
-            for (int i = 0; i < 4; i++)
-            {
-                if (index != i)
-                {
-                    tempSprites.push_back(this->_FPHsprites[i]);
-                }
-            }
-            this->_FPHsprites.clear();
-            this->_FPHsprites = tempSprites;
-            this->_FPHsprites.push_back(this->dummy);
-            for (int i = 0; i < 4; i++)
-            {
-                this->_FPHsprites.at(i).setPosition((SCREEN_WIDTH / 2) - (this->_FPHsprites.at(i).getGlobalBounds().width * 2) + (this->_FPHsprites.at(i).getGlobalBounds().width * i) + (15 * i / i), (SCREEN_HEIGHT) - (this->_FPHsprites.at(i).getGlobalBounds().height));
-            }
-        }
-        else
-        {
-            std::vector<sf::Sprite> tempSprites;
-            for (int i = 0; i < 4; i++)
-            {
-                if (index != i)
-                {
-                    tempSprites.push_back(this->_SPHsprites[i]);
-                }
-            }
-            this->_SPHsprites.clear();
-            this->_SPHsprites = tempSprites;
-            this->_SPHsprites.push_back(this->dummy);
-            for (int i = 0; i < 4; i++)
-            {
-                this->_SPHsprites.at(i).setPosition((SCREEN_WIDTH / 2) - (this->_SPHsprites.at(i).getGlobalBounds().width * 2) + (this->_SPHsprites.at(i).getGlobalBounds().width * i) + (15 * i / i), (SCREEN_HEIGHT) - (this->_SPHsprites.at(i).getGlobalBounds().height));
-            }
-        }
     }
 
     void GameState::playCard(int index, std::vector<Card> playerHand)
@@ -158,7 +76,7 @@ namespace DAi
 
         playerHand = tempHand;
 
-        this->slideCards(this->firstPlayerTurn, index);
+        this->slideCards();
         this->calculateOutcome();
         if (!this->firstPlayerTurn)
         {
