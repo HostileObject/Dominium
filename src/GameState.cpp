@@ -20,6 +20,35 @@ namespace DAi
 
     int GameState::whatDominium()
     {
+        switch (this->_dominiumPile.top().getCardName())
+        {
+            //Jack
+            case JACK_OF_SPADES:
+            case JACK_OF_HEARTS:
+            case JACK_OF_DIAMONDS:
+            case JACK_OF_CLUBS:
+                return 1
+            //Queen
+            case QUEEN_OF_SPADES:
+            case QUEEN_OF_HEARTS:
+            case QUEEN_OF_DIAMONDS:
+            case QUEEN_OF_CLUBS:
+                return 2
+            //King
+            case KING_OF_SPADES:
+            case KING_OF_HEARTS:
+            case KING_OF_DIAMONDS:
+            case KING_OF_CLUBS:
+                return 3
+            //Ace
+            case ACE_OF_SPADES:
+            case ACE_OF_HEARTS:
+            case ACE_OF_DIAMONDS:
+            case ACE_OF_CLUBS:
+                return 4
+            default:
+                return 0
+        }
     }
 
     void GameState::calculateOutcome()
