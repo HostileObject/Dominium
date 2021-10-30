@@ -20,14 +20,79 @@ namespace DAi
 
     int GameState::whatDominium()
     {
+        switch (this->_dominiumPile.top().getCardName())
+        {
+            //Jack
+            case JACK_OF_SPADES:
+            case JACK_OF_HEARTS:
+            case JACK_OF_DIAMONDS:
+            case JACK_OF_CLUBS:
+                return 1
+            //Queen
+            case QUEEN_OF_SPADES:
+            case QUEEN_OF_HEARTS:
+            case QUEEN_OF_DIAMONDS:
+            case QUEEN_OF_CLUBS:
+                return 2
+            //King
+            case KING_OF_SPADES:
+            case KING_OF_HEARTS:
+            case KING_OF_DIAMONDS:
+            case KING_OF_CLUBS:
+                return 3
+            //Ace
+            case ACE_OF_SPADES:
+            case ACE_OF_HEARTS:
+            case ACE_OF_DIAMONDS:
+            case ACE_OF_CLUBS:
+                return 4
+            default:
+                return 0
+        }
     }
 
     void GameState::calculateOutcome()
     {
     }
 
-    void GameState::slideCards()
+    void GameState::slideCards(bool isFPTurn, int index)
     {
+        if (isFPTurn) 
+        {
+            std::vector<sf::Sprite> tempSprites;
+            for (int i = 0; i < 4; i++) 
+            {
+                if (index != i)
+                {
+                    tempSprites.push_back(this->_FPHsprites[i]);
+                }
+            }
+            this->_FPHsprites.clear();
+            this->_FPHsprites = tempSprites;
+            this->_FPHsprites.push_back(this->dummy);
+            for (int i = 0; i < 4 i++) 
+            {
+                this->_FPHsprites.at(i).setPosition((SCREEN_WIDTH/2) - (this->_FPHsprites.at(i).getGlobalBounds().width * 2) + (this->_FPHsprites.at(i).getGlobalBounds().width * i) + (15 * i / i), (SCREEN_HEIGHT) - (this->_FPHsprites.at(i).getGlobalBounds().height));
+            }
+        }
+        else
+        {
+            std::vector<sf::Sprite> tempSprites;
+            for (int i = 0; i < 4; i++) 
+            {
+                if (index != i)
+                {
+                    tempSprites.push_back(this->_SPHsprites[i]);
+                }
+            }
+            this->_SPHsprites.clear();
+            this->_SPHsprites = tempSprites;
+            this->_SPHsprites.push_back(this->dummy);
+            for (int i = 0; i < 4 i++) 
+            {
+                this->_SPHsprites.at(i).setPosition((SCREEN_WIDTH/2) - (this->_FPHsprites.at(i).getGlobalBounds().width * 2) + (this->_FPHsprites.at(i).getGlobalBounds().width * i) + (15 * i / i), (SCREEN_HEIGHT) - (this->_FPHsprites.at(i).getGlobalBounds().height));
+            }
+        }
     }
 
     void GameState::updateDominiumSprite()
@@ -76,7 +141,7 @@ namespace DAi
 
         playerHand = tempHand;
 
-        this->slideCards();
+        this->slideCards(this->firstPlayerTurn, index);
         this->calculateOutcome();
         if (!this->firstPlayerTurn)
         {
